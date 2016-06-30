@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/a1"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="@string/menu_github" />
+        <item
+            android:id="@+id/a2"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="@string/menu_github" />
+        <item
+            android:id="@+id/a3"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="@string/menu_github" />
+        <item
+            android:id="@+id/a4"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="@string/menu_github" />
+    </group>
+
+    <group
+        android:id="@+id/group2"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/a5"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="@string/menu_github" />
+        <item
+            android:id="@+id/a6"
+            android:icon="@android:drawable/ic_menu_help"
+            android:title="@string/menu_github" />
+    </group>
+
+</menu>

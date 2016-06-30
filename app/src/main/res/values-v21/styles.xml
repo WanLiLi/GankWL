@@ -1,0 +1,25 @@
+<resources>
+    <style name="AppTheme.NoActionBar"  parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!--顶部状态栏颜色-->
+        <!--<item name="android:statusBarColor">@color/colorPrimaryDark</item>-->
+
+        <!--底部导航栏底色 only 21 -->
+        <!--<item name="android:navigationBarColor">@color/red</item>-->
+
+        <!-- 允许使用transitions -->
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+
+    <style name="AppTheme.MainActivity">
+        <item name="android:windowEnterTransition">@transition/fade_slow</item>
+        <item name="android:windowExitTransition">@transition/fade_slow</item>
+    </style>
+
+    <style name="AppTheme.DetailsActivity">
+        <item name="colorPrimaryDark">@color/transparent</item>
+    </style>
+</resources>

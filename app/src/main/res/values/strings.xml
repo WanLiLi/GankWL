@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">GankWL</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="details_ac">hi</string>
+    <string name="menu_github">我的github</string>
+    <string name="share">分享</string>
+    <string name="author">GanKWL</string>
+    <string name="share_from"><![CDATA[" - from「万力」http://www.pgyer.com/apiv1/app/install?aId=93cfde2afa60e9bd675e4438490fa020&_api_key=cb0e7e6c00fe97cd4eb8ee8bcde9be53"]]></string>
+
+
+    <string name="settings">设置</string>
+    <string name="help">帮助</string>
+    <string name="string_help_text">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。\n\n最后点击两次后退按钮，即可返回。</string>
+    <string name="quit">退出</string>
+
+    <string name="denied_permission">您拒绝了%1$s权限,这会对客户端产生影响</string>
+
+</resources>

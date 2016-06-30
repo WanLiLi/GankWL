@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="wl.gank.com.gankwl.view.activity.CollectionActivity"
+    >
+
+    <include layout="@layout/toolbar"></include>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_collection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_bar_layout"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+
+    <ViewStub
+        android:id="@+id/viewStub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout="@layout/nodata"
+        />
+
+
+</RelativeLayout>

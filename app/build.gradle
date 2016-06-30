@@ -1,0 +1,109 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+/**
+ * 统一管理build.gradle文件
+ *     1.新建config.gradle文件
+ *     2.在跟project.build.gradle文件中写入  [apply from: "config.gradle"]
+ *
+ *
+ * 加入lambda表达式
+ *     1.在module.buid.gradle 中加入 apply plugin: 'me.tatarka.retrolambda'  和 compileOptions中设置 JavaVersion.VERSION_1_8
+ *     2.在project.buid.gradle中加入 classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+ *
+ *
+ * */
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            //是否启用混淆  //proguardFiles是混淆使用的配置文件，这里是module根目录下的proguard-rules.pro文件
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    //**兼容Android6.0系统所需，如果这句话报错，可在dependencies标签下使用compile 'cn.bmob.android:http-legacy:1.0'**
+    useLibrary 'org.apache.http.legacy'
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    retrolambdaConfig 'net.orfjackal.retrolambda:retrolambda:2.3.0'
+    compile rootProject.ext.dependencies["design"]
+    compile rootProject.ext.dependencies["appcompat-v7"]
+    compile rootProject.ext.dependencies["recyclerview-v7"]
+    compile rootProject.ext.dependencies["butterknife"]
+    compile rootProject.ext.dependencies["cardview"]
+    //compile rootProject.ext.dependencies["okhttp"]
+    compile rootProject.ext.dependencies["glide"]
+    compile rootProject.ext.dependencies["photoview"]
+
+    //让glide使用okhttp的集成库 忽略
+    //compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    //umeng
+    //1.bug管理
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    /**
+     *
+     * 为了降低开发者的使用成本，现提供3.4.7-aar，此aar包含libbmob.so、okhttp、okio及自动更新组件所需要的资源文件。
+     * 开发者再也不需要配置libbmob.so,不需要添加okhttp、okio，也不需要复制自动更新组件的资源文件啦，只需要添加以下依赖即可
+     *
+     * */
+    //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
+    //3.4.7-aar：请务必查看下面注释[1]
+    compile  'cn.bmob.android:bmob-sdk:3.4.7-aar'
+
+    //如果需要兼容Android6.0系统，请添加以下两项...   请添加此依赖(org.apache.http.legacy.jar)
+//    compile 'com.android.support:support-v4:23.2.1'
+//    compile 'cn.bmob.android:http-legacy:1.0'
+
+    //蒲公英
+    compile 'com.pgyersdk:sdk:2.2.2'
+
+    compile 'com.google.code.gson:gson:2.2.4'
+
+    compile('com.squareup.retrofit2:retrofit:2.1.0')
+            {
+                exclude module: 'okhttp'
+//                exclude group: 'com.squareup.okhttp3'
+            }
+
+    //如果你想接收json 结果并解析成DAO，你必须把Gson Converter 作为一个独立的依赖添加进来。
+    compile ('com.squareup.retrofit2:converter-gson:2.0.0-beta4'){
+            exclude module: 'okhttp'
+    }
+
+
+
+
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'io.reactivex:rxjava:1.0.14'
+    //retrofit2 -- RxJava   RxJavaCallAdapterFactory.create
+    compile ('com.squareup.retrofit2:adapter-rxjava:2.0.0'){
+        exclude module: 'okhttp'
+    }
+
+}
