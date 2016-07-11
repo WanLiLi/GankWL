@@ -450,7 +450,7 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
     public void setRefreshing(boolean refreshing) {
         //在oncreate方法中setRefreshing(true)不起作用的原因是因为在oncreate中,onLayout都不知道自己的尺寸，所以当oncreate中网络请求的时候需要刷新，但是
         //还不知道自己的尺寸，没有办法启动setRefreshing(true),所以判断是否已经onLayout完毕。如果没有完毕则强制偏移，否则正常刷新。
-        //如果没有此判断也会影响onLayout完毕后，刷新偏移
+        //如果没有此判断会影响onLayout完毕后，刷新仍然偏移
         if(swipeRefresh.getMeasuredWidth()==0){
             swipeRefresh.setProgressViewOffset(false, 0, ConverTool.dip2px(this, 24));
         }

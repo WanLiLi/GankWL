@@ -46,7 +46,7 @@ public class CollectionActivity extends ContentActivity {
 
     private boolean isOpen;
     private List<Gank> gankList2;  //专门用来对比值的集合，不需要操作
-    private Boolean isUpadte;
+    private Boolean isUpadte;      //是否有删除的操作
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
