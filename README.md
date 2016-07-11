@@ -3,4 +3,8 @@
 
 
 可以学习的知识：
-  1.5.0xi
+  1. 5.0Activtiy跳转动画，元素共享动画。
+  2. 5.0控件（recycleView,SwipeRefreshLayout,Toolbar,CoordinatorLayout,CollapsingToolbarLayout等）
+  3. 第三方库（butterknife，glide，photoview，友盟,蒲公英等）,主要是学习第三方库的使用
+  4. 屏蔽之前的代码，重新用（RxJava+retrofit2+okhttp）三个框架编写同样的功能，主要是提供学习
+  5. 在线升级,后台管理
