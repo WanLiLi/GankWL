@@ -26,9 +26,7 @@ import android.net.Uri;
 import wl.gank.com.gankwl.R;
 
 
-/**
- * Created by drakeet on 8/17/15.
- */
+
 public class Shares {
 
     public static void share(Context context, int stringRes) {

@@ -1,6 +1,5 @@
 package wl.gank.com.gankwl.view.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import wl.gank.com.gankwl.R;

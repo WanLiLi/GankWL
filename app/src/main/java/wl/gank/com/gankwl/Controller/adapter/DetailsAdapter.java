@@ -35,8 +35,6 @@ import wl.gank.com.gankwl.tools.MLog;
  */
 public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHolder> {
 
-
-
     private Context mContext;
     private List<Gank> gankList;
 

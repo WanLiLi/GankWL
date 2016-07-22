@@ -163,25 +163,22 @@ public class DetailsActivity extends ContentActivity {
         switch (view.getId()) {
             case R.id.image_collapsing:
                 Intent intent = PictureActivity.newIntent(this, uri);
-                if(VersionHelper.isAtLeast()){
+                if (VersionHelper.isAtLeast()) {
                     startActivtyByAnimation(intent, imageCollapsing, PictureActivity.TRANSIT_NAME);
-                }else {
+                } else {
                     startActivity(intent);
                 }
                 break;
             case R.id.toolbar_collapsing:
                 break;
             case R.id.fab_detail:
-//                ListCacheFactory listCacheFactory = new ListCacheFactory<Gank>(this, CacheConfig.MYCOLLECTION);
-//                listCacheFactory.removeObjectOfList();
                 List<Gank> ganks = CollectionCache.getCacheCollection(this);
-                //只写一个size不可以
-                if(ganks!=null&&ganks.size()>0){
+
+                if (ganks != null && ganks.size() > 0) {
                     for (Gank gank : ganks) {
                         MLog.d("wanli", "getCache: " + ganks.size() + "========" + gank.getUrl() + "--" + gank.getPublishedAt() + "--" + gank.getWho());
                     }
                 }
-
                 break;
         }
     }

@@ -99,6 +99,8 @@ public class RecyAdaperMain extends RecyclerView.Adapter<RecyAdaperMain.ViewHold
         //.diskCacheStrategy(DiskCacheStrategy.ALL)
         Glide.with(mContext).load(uri).into(holder.imagItem);
 
+
+
         String desc = meizhi.getDesc();
         holder.txtItem.setText(desc.length() > 20 ? desc.substring(0, 20) + "...." : desc);
 

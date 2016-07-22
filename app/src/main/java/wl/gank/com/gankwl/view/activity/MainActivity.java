@@ -53,7 +53,7 @@ import wl.gank.com.gankwl.view.ContentActivity;
 
 import static android.os.Looper.getMainLooper;
 
-public class MainActivity extends ContentActivity implements View.OnClickListener,RecyAdaperMain.OnRefreshingListener {
+public class MainActivity extends ContentActivity implements View.OnClickListener, RecyAdaperMain.OnRefreshingListener {
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private SwipeRefreshLayout swipeRefresh;
@@ -91,6 +91,20 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
 
         toolbar.setOnClickListener(this);
 
+        fabReLayout = (RelativeLayout) findViewById(R.id.fab_reLayout);
+
+        btn_collection = (Button) findViewById(R.id.btn_collection);
+        btn_collection.setOnClickListener(this);
+        btn_github = (Button) findViewById(R.id.btn_github);
+        btn_github.setOnClickListener(this);
+        btn_csnd = (Button) findViewById(R.id.btn_csnd);
+        btn_csnd.setOnClickListener(this);
+        btn_tougao = (Button) findViewById(R.id.btn_tougao);
+        btn_tougao.setOnClickListener(this);
+
+        views = new View[]{fab, btn_collection, btn_github, btn_csnd, btn_tougao};
+
+
         requestEscortPermission(new PermissionUtil.PermissionCallBack() {
             @Override
             public void handleProceed(String permission) {
@@ -105,21 +119,6 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
         }, PERMISSIONS);
 
 
-
-
-
-        fabReLayout = (RelativeLayout) findViewById(R.id.fab_reLayout);
-
-        btn_collection = (Button) findViewById(R.id.btn_collection);
-        btn_collection.setOnClickListener(this);
-        btn_github = (Button) findViewById(R.id.btn_github);
-        btn_github.setOnClickListener(this);
-        btn_csnd = (Button) findViewById(R.id.btn_csnd);
-        btn_csnd.setOnClickListener(this);
-        btn_tougao = (Button) findViewById(R.id.btn_tougao);
-        btn_tougao.setOnClickListener(this);
-
-        views = new View[]{fab, btn_collection, btn_github, btn_csnd, btn_tougao};
 
         //第一：默认初始化
         Bmob.initialize(this, "9455ea24a37ed59590b0b6e38cc7f23b");
@@ -345,6 +344,7 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
         }
     }
 
+    ObjectAnimator objectAnimator;
 
     public void startAnimation(View[] views) {
         isOpen = true;
@@ -354,8 +354,8 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
              *ObjectAnimator
              * */
             for (int i = 0; i < views.length; i++) {
-                ObjectAnimator objectAnimator = new ObjectAnimator().ofFloat(views[i], "translationY", 0, -(i * 250));
-                //objectAnimator.setStartDelay(500);
+                objectAnimator = ObjectAnimator.ofFloat(views[i], "translationY", 0, -(i * 250));
+                objectAnimator.setStartDelay(i*150);
                 objectAnimator.setDuration(700);
                 objectAnimator.setInterpolator(new BounceInterpolator());
                 objectAnimator.start();
@@ -365,7 +365,7 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
              *ViewCompat
              * */
             for (int i = 0; i < views.length; i++) {
-                ViewCompat.animate(views[i]).translationY(i * -ConverTool.px2dip(this, 480)).setDuration(600).setInterpolator(new BounceInterpolator()).start();
+                ViewCompat.animate(views[i]).translationY(i * -ConverTool.px2dip(this, 400)).setDuration(600).setInterpolator(new BounceInterpolator()).start();
             }
         }
     }
@@ -378,8 +378,8 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
              *ObjectAnimator
              * */
             for (int i = 0; i < views.length; i++) {
-                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(views[i], "translationY", i * 250, 0);
-                //objectAnimator.setStartDelay(500);
+                objectAnimator = ObjectAnimator.ofFloat(views[i], "translationY", i * 250, 0);
+                objectAnimator.setStartDelay(i*150);
                 objectAnimator.setDuration(500);
                 objectAnimator.setInterpolator(new BounceInterpolator());
                 objectAnimator.start();
@@ -413,7 +413,7 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
                 startActivity(new Intent(this, AuthorActivity.class));
                 break;
             case R.id.toolbar:
-                recyclerView.smoothScrollToPosition(lastPosition - 10);
+                recyclerView.smoothScrollToPosition(lastPosition - 10 <= 0 ? 0 : lastPosition - 10);
                 break;
             default:
                 Toast.makeText(MainActivity.this, "待开发", Toast.LENGTH_SHORT).show();
@@ -451,7 +451,7 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
         //在oncreate方法中setRefreshing(true)不起作用的原因是因为在oncreate中,onLayout都不知道自己的尺寸，所以当oncreate中网络请求的时候需要刷新，但是
         //还不知道自己的尺寸，没有办法启动setRefreshing(true),所以判断是否已经onLayout完毕。如果没有完毕则强制偏移，否则正常刷新。
         //如果没有此判断会影响onLayout完毕后，刷新仍然偏移
-        if(swipeRefresh.getMeasuredWidth()==0){
+        if (swipeRefresh.getMeasuredWidth() == 0) {
             swipeRefresh.setProgressViewOffset(false, 0, ConverTool.dip2px(this, 24));
         }
         swipeRefresh.setRefreshing(refreshing);

@@ -39,8 +39,6 @@ public class CollectionActivity extends ContentActivity {
     private List<Gank> gankList = Collections.synchronizedList(new ArrayList<>());
 
 
-
-
     //获取选中的gankList的下标
     private List<Integer> count = Collections.synchronizedList(new ArrayList<Integer>());
 
@@ -80,40 +78,40 @@ public class CollectionActivity extends ContentActivity {
         } else {
             MLog.d("wanli", "gankList null：");
         }
-//        if (gankList != null && gankList.size() > 0) {
+        if (gankList != null && gankList.size() > 0) {
             for (Gank gank : gankList) {
                 MLog.d("wanli", "getCache-collection: " + gankList.size() + "========" + gank.getUrl() + "--" + gank.getPublishedAt() + "--" + gank.getWho());
             }
+        }
+        //Collections.reverse(gankList);
+        adapter = new CollectionAdapter(this) {
+            @Override
+            public void OnclickItem(int position, boolean isChecked) {
+                if (isChecked) {
+                    count.add(position);
+                    for (int i = 0; i < count.size(); i++) {
+                        Integer value = count.get(i);
+                        MLog.d("wanli", "OnclickItem: " + value);
+                    }
 
-            //Collections.reverse(gankList);
-            adapter = new CollectionAdapter(this) {
-                @Override
-                public void OnclickItem(int position, boolean isChecked) {
-                    if (isChecked) {
-                        count.add(position);
-                        for (int i = 0; i < count.size(); i++) {
-                            Integer value = count.get(i);
-                            MLog.d("wanli", "OnclickItem: " + value);
-                        }
-
-                    } else {
-                        //如果值等于我选中的下标
-                        for (int i = 0; i < count.size(); i++) {
-                            if (count.get(i) == position) {
-                                //根据值移除
-                                count.remove(Integer.valueOf(position));
-                            }
-                        }
-                        for (int i = 0; i < count.size(); i++) {
-                            Integer value = count.get(i);
-                            MLog.d("wanli", "OnclickItem: " + value);
+                } else {
+                    //如果值等于我选中的下标
+                    for (int i = 0; i < count.size(); i++) {
+                        if (count.get(i) == position) {
+                            //根据值移除
+                            count.remove(Integer.valueOf(position));
                         }
                     }
+                    for (int i = 0; i < count.size(); i++) {
+                        Integer value = count.get(i);
+                        MLog.d("wanli", "OnclickItem: " + value);
+                    }
                 }
-            };
+            }
+        };
 
-            adapter.setData(gankList);
-            recyclerviewCollection.setAdapter(adapter);
+        adapter.setData(gankList);
+        recyclerviewCollection.setAdapter(adapter);
 //        }
 
 //        else {
@@ -181,7 +179,7 @@ public class CollectionActivity extends ContentActivity {
                                 adapter.notifyDataSetChanged();
                             }
                         }, 350);
-                    //没有选中的动画，不用延迟
+                        //没有选中的动画，不用延迟
                     } else {
                         adapter.notifyDataSetChanged();
                     }

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
@@ -19,7 +20,7 @@ import com.umeng.analytics.MobclickAgent;
 import wl.gank.com.gankwl.tools.PermissionUtil;
 
 /**
- * Created by wanli on 2016/6/13.
+ * Created by wanli on 2016/6/14.
  */
 /**
  *
@@ -91,7 +92,7 @@ public abstract class ContentActivity extends BaseActivity {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public  void startActivtyByAnimation(Intent intent, View view, String name) {
-        ActivityOptions options = ActivityOptions
+        ActivityOptionsCompat options = ActivityOptionsCompat
                 .makeSceneTransitionAnimation(this, view, name);
         try {
             ActivityCompat.startActivity(this, intent, options.toBundle());

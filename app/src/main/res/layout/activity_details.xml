@@ -8,14 +8,22 @@
 
     <!--第一部分：伸缩工具栏-->
     <!--
-       AppBarLayout
+        AppBarLayout
+
 
         app:layout_scrollFlag
+        简单讲就是滚动后触发的行为
             AppBarLayout里面定义的view只要设置了app:layout_scrollFlags属性，就可以在RecyclerView滚动事件发生的时候被触发：
             app:layout_scrollFlags属性里面必须至少启用scroll这个flag，想滚动就必须设置这个
             这样这个view才会滚动出屏幕，否则它将一直固定在顶部。可以使用的其他flag有：
 
+
+layout_scrollFlag属性值：
+        scroll
+
         enterAlways
+            任意向下滚动这个view就可见。当向下移动时，立即显示View（比如Toolbar)。
+
 
         exitUntilCollapsed
             同样顾名思义，这个flag时定义何时退出，当你定义了一个minHeight，
@@ -49,8 +57,8 @@
                  我们可以在布局中使用属性app:layout_collapseMode=parallax来改变。
          -->
 
-        <!--exitUntilCollapsed:  此刻如果没有这个属性，toolbar将也会隐藏 ***********-->
-        <android.support.design.widget.CollapsingToolbarLayout
+        <!--exitUntilCollapsed:  此刻如果没有这个属性，CollapsingToolbarLayout不会折叠 ***********-->
+            <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,8 +96,9 @@
     <include layout="@layout/recyclerview"></include>
 
 
-
     <!--第三部分：漂浮按钮-->
+
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_detail"
         android:layout_width="wrap_content"

@@ -3,7 +3,7 @@ package wl.gank.com.gankwl.tools;
 import android.os.Build;
 
 /**
- * Created by wanli on 2016/6/7.
+ * Created by wanli on 2016/6/20.
  */
 public class VersionHelper {
     private VersionHelper() {
