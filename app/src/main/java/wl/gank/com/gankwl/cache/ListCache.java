@@ -7,12 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 import wl.gank.com.gankwl.tools.MLog;
 
-
+/**
+ * Created by wanli on 2016/6/15.
+ */
 public class ListCache<M> implements IFileCache<List<M>> {
 
     private String path;

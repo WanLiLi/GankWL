@@ -20,7 +20,7 @@ import wl.gank.com.gankwl.tools.MLog;
 import wl.gank.com.gankwl.view.activity.CollectionActivity;
 
 /**
- * Created by wanli on 2016/6/27.
+ * Created by wanli on 2016/6/17.
  */
 public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Gank> gankList;

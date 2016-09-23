@@ -13,7 +13,7 @@ import wl.gank.com.gankwl.R;
 
 
 /**
- * Created by songzeyang on 16/4/21.
+ * Created by songzeyang on 16/4/20.
  */
 public class PermissionUtil {
 
@@ -29,7 +29,7 @@ public class PermissionUtil {
     private static final String PACKAGE_URL_SCHEME = "package:";
 
     //请求权限
-    public static void requestPermissions(Activity context,int reqCode,String... permissions) {
+    public static void requestPermissions(Activity context, int reqCode, String... permissions) {
         ActivityCompat.requestPermissions(context, permissions, reqCode);
     }
 
@@ -43,7 +43,7 @@ public class PermissionUtil {
         builder.setNegativeButton(R.string.quit, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                  dialog.dismiss();
+                dialog.dismiss();
             }
         });
 
@@ -69,6 +69,7 @@ public class PermissionUtil {
 
     public interface PermissionCallBack {
         void handleProceed(String permission);
+
         void handleDenied(String permission);
     }
 }

@@ -1,7 +1,7 @@
 package wl.gank.com.gankwl.model.entity;
 
 /**
- * Created by wanli on 2016/6/21.
+ * Created by wanli on 2016/6/20.
  */
 public class PgyUpdate extends Soul {
 
