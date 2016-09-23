@@ -84,17 +84,9 @@ public class DetailsActivity extends ContentActivity {
         uri = getIntent().getStringExtra(EXTRA_URI);
         date = getIntent().getStringExtra(EXTRA_DATE);
 
+        setTitle(date);
 
-        //2016-06-15T11:55:46.992Z
-
-        String dateStr = date.substring(0, 10);
-        MLog.d("wanli", "dateStr " + dateStr);
-        setTitle(dateStr);
-
-        String dateNew = dateStr.replaceAll("-", "/");
-        MLog.d("wanli", "dateNew " + dateNew);
-
-        uriGank = uriGank + "/" + dateNew;
+        uriGank = uriGank + "/" + date;
 
         //crossFade 淡入淡出  thumbnail 缩略图
         Glide.with(this).load(uri).thumbnail(0.1f).into(imageCollapsing);
@@ -124,7 +116,6 @@ public class DetailsActivity extends ContentActivity {
                 GankData gankData = gson.fromJson(res, GankData.class);
                 GankData.Result Results = gankData.getResults();
                 addResults(Results);
-
                 new Handler(getMainLooper()).post(() -> refreshGank());
             }
         });

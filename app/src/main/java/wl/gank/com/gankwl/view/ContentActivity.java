@@ -114,20 +114,6 @@ public abstract class ContentActivity extends BaseActivity {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private PermissionUtil.PermissionCallBack callBack;
 
     protected void requestEscortPermission(PermissionUtil.PermissionCallBack callBack, String... permission) {

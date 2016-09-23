@@ -1,6 +1,6 @@
 package wl.gank.com.gankwl.model.entity;
 
-import java.util.List;
+import java.util.Date;
 
 /**
  * Created by wanli on 2016/6/14.
@@ -10,12 +10,22 @@ public class Meizhi extends Soul {
     private String _id;
     private String createdAt;
     private String desc;
-    private String publishedAt;
+
+    private Date publishedAt;  //2016-06-15T11:55:46.992Z
     private String source;
     private String type;
     private String url;
     private boolean used;
     private String who;
+
+    public Date getPublishedAt() {
+        return publishedAt;
+    }
+
+    public void setPublishedAt(Date publishedAt) {
+        this.publishedAt = publishedAt;
+    }
+
 
     public String get_id() {
         return _id;
@@ -41,13 +51,6 @@ public class Meizhi extends Soul {
         this.desc = desc;
     }
 
-    public String getPublishedAt() {
-        return publishedAt;
-    }
-
-    public void setPublishedAt(String publishedAt) {
-        this.publishedAt = publishedAt;
-    }
 
     public String getSource() {
         return source;

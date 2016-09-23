@@ -207,7 +207,6 @@ public class CollectionActivity extends ContentActivity {
                         adapter.setIsOpen(isOpen);
                         adapter.notifyDataSetChanged();
                     } else {
-
                         Toast.makeText(this, "快去收藏喜欢的知识", Toast.LENGTH_LONG).show();
                     }
                 }

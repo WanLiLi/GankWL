@@ -1,22 +1,17 @@
 package wl.gank.com.gankwl.view.activity;
 
-import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
-import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.ActionBarOverlayLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -40,20 +35,20 @@ import cn.bmob.v3.listener.BmobUpdateListener;
 import cn.bmob.v3.update.BmobUpdateAgent;
 import cn.bmob.v3.update.UpdateResponse;
 import cn.bmob.v3.update.UpdateStatus;
-import wl.gank.com.gankwl.Controller.adapter.RecyAdaperMain;
+import wl.gank.com.gankwl.Controller.adapter.MainAdaper;
 import wl.gank.com.gankwl.R;
+import wl.gank.com.gankwl.func.OnclickItem;
 import wl.gank.com.gankwl.model.entity.Meizhi;
 import wl.gank.com.gankwl.model.entity.PgyUpdate;
 import wl.gank.com.gankwl.tools.ConverTool;
+import wl.gank.com.gankwl.tools.DateUtils;
 import wl.gank.com.gankwl.tools.MLog;
 import wl.gank.com.gankwl.tools.PermissionUtil;
 import wl.gank.com.gankwl.tools.Shares;
 import wl.gank.com.gankwl.tools.VersionHelper;
 import wl.gank.com.gankwl.view.ContentActivity;
 
-import static android.os.Looper.getMainLooper;
-
-public class MainActivity extends ContentActivity implements View.OnClickListener, RecyAdaperMain.OnRefreshingListener {
+public class MainActivity extends ContentActivity implements View.OnClickListener, MainAdaper.OnRefreshingListener {
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private SwipeRefreshLayout swipeRefresh;
@@ -117,7 +112,6 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
                         Toast.LENGTH_SHORT).show();
             }
         }, PERMISSIONS);
-
 
 
         //第一：默认初始化
@@ -284,6 +278,7 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
 
 
     private int lastPosition;
+    private MainAdaper adaperMain;
 
     @Override
     public void initEvent() {
@@ -303,13 +298,18 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
         recyclerView.setLayoutManager(layoutManager);
 
 
-        RecyAdaperMain adaperMain = new RecyAdaperMain(this);
+        adaperMain = new MainAdaper(this);
         adaperMain.setOnRefreshingListener(this);
         adaperMain.loadData();
         recyclerView.setAdapter(adaperMain);
 
 
-        adaperMain.setOnclickItem((v, meizhi) -> startGankActivity(v, meizhi));
+        adaperMain.setOnclickItem(new OnclickItem() {
+            @Override
+            public void click(View v, Meizhi meizhi) {
+                startGankActivity(v, meizhi);
+            }
+        });
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -333,7 +333,7 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
     private void startGankActivity(View shareView, Meizhi meizhi) {
         Intent intent = new Intent(this, DetailsActivity.class);
         intent.putExtra(DetailsActivity.EXTRA_URI, meizhi.getUrl());
-        intent.putExtra(DetailsActivity.EXTRA_DATE, meizhi.getPublishedAt());
+        intent.putExtra(DetailsActivity.EXTRA_DATE, DateUtils.dateToStr(meizhi.getPublishedAt()));  //2016-06-15T11:55:46.992Z
 
         if (VersionHelper.isAtLeast()) {
             //startActivtyByAnimation(intent);
@@ -355,7 +355,7 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
              * */
             for (int i = 0; i < views.length; i++) {
                 objectAnimator = ObjectAnimator.ofFloat(views[i], "translationY", 0, -(i * 250));
-                objectAnimator.setStartDelay(i*150);
+                objectAnimator.setStartDelay(i * 150);
                 objectAnimator.setDuration(700);
                 objectAnimator.setInterpolator(new BounceInterpolator());
                 objectAnimator.start();
@@ -379,7 +379,7 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
              * */
             for (int i = 0; i < views.length; i++) {
                 objectAnimator = ObjectAnimator.ofFloat(views[i], "translationY", i * 250, 0);
-                objectAnimator.setStartDelay(i*150);
+                objectAnimator.setStartDelay(i * 150);
                 objectAnimator.setDuration(500);
                 objectAnimator.setInterpolator(new BounceInterpolator());
                 objectAnimator.start();
@@ -455,5 +455,12 @@ public class MainActivity extends ContentActivity implements View.OnClickListene
             swipeRefresh.setProgressViewOffset(false, 0, ConverTool.dip2px(this, 24));
         }
         swipeRefresh.setRefreshing(refreshing);
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adaperMain.unsubscribeMy();
     }
 }

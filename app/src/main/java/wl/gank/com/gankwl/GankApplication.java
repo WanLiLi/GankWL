@@ -11,6 +11,5 @@ public class GankApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
     }
 }
